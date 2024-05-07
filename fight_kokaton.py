@@ -128,7 +128,6 @@ class Beam:
         爆弾を速度ベクトルself.vx, self.vyに基づき移動させる
         引数 screen：画面Surface
         """
-        # yoko, tate = check_bound(self.rct) == (True, True)
         if check_bound(self.rct) == (True, True):
             self.rct.move_ip(self.vx, self.vy)
             screen.blit(self.img, self.rct)
@@ -150,19 +149,26 @@ def main():
                 beam = Beam(bird)
 
         screen.blit(bg_img, [0, 0])
+
+        if bomb is not None:
+            bomb.update(screen)
         
-        if bird.rct.colliderect(bomb.rct):
-            # ゲームオーバー時に，こうかとん画像を切り替え，1秒間表示させる
-            bird.change_img(8, screen)
-            pg.display.update()
-            time.sleep(1)
-            return
+
+
+            if bird.rct.colliderect(bomb.rct):
+                # ゲームオーバー時に，こうかとん画像を切り替え，1秒間表示させる
+                bird.change_img(8, screen)
+                pg.display.update()
+                time.sleep(1)
+                return
 
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
-        bomb.update(screen)
         if beam is not None:
             beam.update(screen)
+            if beam.rct.colliderect(bomb.rct):
+                beam = None
+                bomb = None
         pg.display.update()
         tmr += 1
         clock.tick(50)
