@@ -169,6 +169,9 @@ def main():
             if beam.rct.colliderect(bomb.rct):
                 beam = None
                 bomb = None
+                bird.change_img(6, screen)
+                pg.display.update()
+
         pg.display.update()
         tmr += 1
         clock.tick(50)
