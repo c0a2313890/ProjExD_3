@@ -120,7 +120,7 @@ class Beam:
         self.img = pg.transform.rotozoom(pg.image.load("fig/beam.png"), 0, 2.0) #ビームの読み込み
         self.rct: pg.Rect = self.img.get_rect()
         self.rct.left = bird.rct.right #ビームの左端をこうかとんの右端に
-        self.rct.center = bird.rct.center
+        self.rct.centery = bird.rct.centery
         self.vx, self.vy = +5, 0
 
     def update(self, screen: pg.Surface):
